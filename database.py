@@ -15,7 +15,6 @@ def judgment_connect():
         database='phm',
         charset='utf8'
         )
-        print('数据库连接成功！')
         return conn
     except:
         print("数据库连接失败")
