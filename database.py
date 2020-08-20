@@ -30,12 +30,14 @@ def select_code(code):
     conn.commit()
     return c
 
-
-
-
-
-
-
+def select_relation(alpha):
+    conn = judgment_connect()
+    cursor = conn.cursor()
+    sql = 'select ID from fault_information where %s is not null' % alpha
+    cursor.execute(sql)
+    c = cursor.fetchall()
+    conn.commit()
+    return c
 
 
 

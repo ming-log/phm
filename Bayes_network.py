@@ -6,7 +6,7 @@
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.models import BayesianModel
 from pgmpy.inference import VariableElimination
-from dataset import get_tree_data
+from dataset import get_tree_data, get_ID
 
 
 """生成贝叶斯网络节点"""
@@ -65,32 +65,56 @@ def update_bayes_network(model, code, update_element = {}):
         print(i + ':' + str(j/sum_j))
     return sort_re
 
+"""将输入的字符串转化为字典"""
 def str_to_dic(str):
     dic = {}
     if ',' in str:
         for i in str.split(','):
-            a, b = i.split('=')
-            dic[a.strip()] = int(b.strip())
+            dic[i] = 0
     else:
-        a, b = str.split('=')
-        dic[a.strip()] = int(b.strip())
+        dic[str] = 0
     return dic
 
-def main():
-    code = "P20FE85"
+"""获取需要更新的数据"""
+def get_update_data(alpha, update_data):
+    if ',' in update_data:
+        set_update_data = set(update_data.split(','))
+    else:
+        set_update_data = {}
+    print("---" + str(set_update_data))
+    data = get_ID(alpha)
+    set_data = set(data)
+    already_check = set_data.intersection(set_update_data)
+    rest_data = set_data.difference(set_update_data)
+    print(alpha + '需要检测的零部件:' + str(list(set_data)))
+    print("其中已经检测过的零部件:" + str(list(already_check)))
+    print("还需要检测的零部件:" + str(list(rest_data)))
+    input("输入回车继续：")
+    rest_data = list(rest_data)
+    if len(rest_data) >= 1:
+        a = rest_data[0]
+        for i in rest_data[1:]:
+            a = a + ',' + i
+    else:
+        a = ''
+    return a
+
+def main(code = "P20FE85"):
     model = set_bayes_model(code)
     print('当前网络节点概率值:')
     update_bayes_network(model, code)
     update_data = ''
     while True:
         try:
-            update = input("请输入要更新的节点，以逗号为分割符号：")
-            if update == '0':
+            alpha = input("请输入检测结果:")
+            if alpha == '0':
+                print("退出成功！")
                 break
+            update = get_update_data(alpha, update_data)
             print("输入0退出系统！")
             print("-"*20)
             print('更新后:')
-            if update_data:
+            if update_data and update:
                 update_data = update_data + ',' + update
             else:
                 update_data = update_data + update
