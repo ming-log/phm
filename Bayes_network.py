@@ -94,9 +94,9 @@ def get_update_data(alpha, update_data):
     already_check = set_data.intersection(set_update_data)
     rest_data = set_data.difference(set_update_data)
     print(alpha + '需要检测的零部件:' + str(list(set_data)))
-
     print("其中已经检测过的零部件:" + str(list(already_check)))
     print("还需要检测的零部件:" + str(list(rest_data)))
+    print("还需要检测的零部件的概率分布:")
     if rest_data:
         set_data_pro = get_pro(alpha, list(rest_data))
         for i, j in set_data_pro.items():
@@ -122,10 +122,12 @@ def main(code = "P20FE85"):
             if alpha == '0':
                 print("*"*10)
                 print(" 退出成功！")
-                print("*" * 10)
+                print("*"*10)
                 break
             update = get_update_data(alpha, update_data)
-            print("输入0退出系统！")
+            print("*" * 20)
+            print("   输入0退出系统！")
+            print("*" * 20)
             print("-"*20)
             print('更新后:')
             if update_data and update:
