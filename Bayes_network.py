@@ -126,14 +126,14 @@ def get_update_data(alpha, update_data):
     rest_data = set_data.difference(set_update_data)
     print(alpha + '需要检测的零部件:' + str(list(set_data)))
     print("其中已经检测过的零部件:" + str(list(already_check)))
-    print("还需要检测的零部件:" + str(list(rest_data)))
-    print("还需要检测的零部件的概率分布:")
-    if rest_data:
-        set_data_pro = get_pro(alpha, list(rest_data))
-        for i, j in set_data_pro.items():
-            print(i + ':' + j)
-    action = input("输入回车继续：")
+    print("需要检测的零部件:" + str(list(rest_data)))
+    action = input("检测无故障请输入回车，检测有故障请输入0：")
     if action == '0':
+        print("检测零部件的概率分布:")
+        if rest_data:
+            set_data_pro = get_pro(alpha, list(rest_data))
+            for i, j in set_data_pro.items():
+                print(i + ':' + j)
         return 0
     rest_data = list(rest_data)
     if len(rest_data) >= 1:
@@ -152,6 +152,7 @@ def main(code = "P20FE85"):
     while True:
         try:
             alpha = input("请输入要进行检测的检测手段序号:")
+
             if alpha == '0':
                 print("*"*10)
                 print(" 退出成功！")
@@ -160,12 +161,9 @@ def main(code = "P20FE85"):
             update = get_update_data(alpha, update_data)
             if update == 0:
                 print("*"*10)
-                print(" 退出成功！")
+                print(" 检修完成！")
                 print("*"*10)
                 break
-            print("*" * 20)
-            print("   输入0退出系统！")
-            print("*" * 20)
             print("-"*20)
             print('更新后:')
             if update_data and update:
