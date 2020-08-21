@@ -50,7 +50,3 @@ def select_detail_data(alpha, ID):
     conn.commit()
     return c
 
-
-select_detail_data('alpha1', 'R1')
-alpha = 'alpha1'
-ID = 'R1'

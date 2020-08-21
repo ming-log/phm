@@ -2,12 +2,10 @@
 # -*- coding:utf-8 -*-
 # author: Ming Luo
 # time: 2020/8/18 15:25
-
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.models import BayesianModel
 from pgmpy.inference import VariableElimination
 from dataset import get_tree_data, get_ID, get_detail_data
-
 
 """生成贝叶斯网络节点"""
 def node_pro(pro, code, p_code):
@@ -39,7 +37,6 @@ def get_all_node_name(code):
         all_node_name.append(i[0])
     return all_node_name
 
-
 """构建贝叶斯网络模型"""
 def set_bayes_model(code):
     """
@@ -65,7 +62,7 @@ def update_bayes_network(model, code, update_element = {}):
     :param model: 贝叶斯网络模型
     :param code: 根节点的故障码/故障编号
     :param update_element: 进行故障检测的检测手段编号
-    :return:
+    :return:更新后的网络节点信息
     """
     kt_infer = VariableElimination(model)
     all_node_name = get_all_node_name(code)
@@ -135,7 +132,9 @@ def get_update_data(alpha, update_data):
         set_data_pro = get_pro(alpha, list(rest_data))
         for i, j in set_data_pro.items():
             print(i + ':' + j)
-    input("输入回车继续：")
+    action = input("输入回车继续：")
+    if action == '0':
+        return 0
     rest_data = list(rest_data)
     if len(rest_data) >= 1:
         a = rest_data[0]
@@ -159,6 +158,11 @@ def main(code = "P20FE85"):
                 print("*"*10)
                 break
             update = get_update_data(alpha, update_data)
+            if update == 0:
+                print("*"*10)
+                print(" 退出成功！")
+                print("*"*10)
+                break
             print("*" * 20)
             print("   输入0退出系统！")
             print("*" * 20)
