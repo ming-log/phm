@@ -42,7 +42,6 @@ def set_bayes_model(code):
                 variable_card=2,
                 values=[[1 - float(pro_data[0][1].split('%')[0])/100, float(pro_data[0][1].split('%')[0])/100]]
     )
-
     model.add_cpds(root_cpd)
     return model
 
@@ -56,7 +55,8 @@ def update_bayes_network(model, code, update_element = {}):
     for i in The_updated_element:
         temp = kt_infer.query(
             variables=[i],
-            evidence=update_element
+            evidence=update_element,
+            show_progress = False
         ).values[1]
         update_prob[i] = temp
     sort_re = dict(sorted(update_prob.items(), key=lambda x: x[1], reverse=True))
@@ -81,7 +81,7 @@ def get_update_data(alpha, update_data):
         set_update_data = set(update_data.split(','))
     else:
         set_update_data = {}
-    print("---" + str(set_update_data))
+    print("-" * 20)
     data = get_ID(alpha)
     set_data = set(data)
     already_check = set_data.intersection(set_update_data)
