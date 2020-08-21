@@ -30,6 +30,7 @@ def select_code(code):
     conn.commit()
     return c
 
+"""根据检测手段查询相应的零部件故障编号"""
 def select_relation(alpha):
     conn = judgment_connect()
     cursor = conn.cursor()
@@ -39,6 +40,7 @@ def select_relation(alpha):
     conn.commit()
     return c
 
+"""根据检测手段和相应的零部件故障编号查询对应的概率值"""
 def select_detail_data(alpha, ID):
     conn = judgment_connect()
     cursor = conn.cursor()

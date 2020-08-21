@@ -11,6 +11,12 @@ from dataset import get_tree_data, get_ID, get_detail_data
 
 """生成贝叶斯网络节点"""
 def node_pro(pro, code, p_code):
+    """
+    :param pro: 先验的故障条件概率
+    :param code: 当前节点的故障码/故障编号
+    :param p_code: 当前节点的父节点的故障码/故障编号
+    :return: 相应的贝叶斯网络节点cpd对象
+    """
     cpd = TabularCPD(
                 variable=code,
                 variable_card=2,
@@ -23,6 +29,10 @@ def node_pro(pro, code, p_code):
 
 """得到所有节点名称"""
 def get_all_node_name(code):
+    """
+    :param code: 根节点故障码/故障编号
+    :return: 所有叶节点故障码/故障编号
+    """
     _, pro_data = get_tree_data(code)
     all_node_name = []
     for i in pro_data[1:]:
@@ -32,6 +42,10 @@ def get_all_node_name(code):
 
 """构建贝叶斯网络模型"""
 def set_bayes_model(code):
+    """
+    :param code: 根节点故障码/故障编号
+    :return: 利用历史信息构建好的贝叶斯网络模型
+    """
     node_data, pro_data = get_tree_data(code)
     model = BayesianModel(node_data[1:])
     for i in pro_data[1:]:
@@ -47,6 +61,12 @@ def set_bayes_model(code):
 
 """更新贝叶斯网络"""
 def update_bayes_network(model, code, update_element = {}):
+    """
+    :param model: 贝叶斯网络模型
+    :param code: 根节点的故障码/故障编号
+    :param update_element: 进行故障检测的检测手段编号
+    :return:
+    """
     kt_infer = VariableElimination(model)
     all_node_name = get_all_node_name(code)
     sec_problem = set(all_node_name)
@@ -67,6 +87,10 @@ def update_bayes_network(model, code, update_element = {}):
 
 """将输入的字符串转化为字典"""
 def str_to_dic(str):
+    """
+    :param str: 字符串
+    :return: 字典
+    """
     dic = {}
     if ',' in str:
         for i in str.split(','):
@@ -76,6 +100,11 @@ def str_to_dic(str):
     return dic
 
 def get_pro(alpha, _list):
+    """
+    :param alpha: 检测手段的编号
+    :param _list: 故障零部件对应的故障码/编号构成的列表
+    :return:
+    """
     data = {}
     for i in _list:
         pro = get_detail_data(alpha, i)
@@ -84,6 +113,11 @@ def get_pro(alpha, _list):
 
 """获取需要更新的数据"""
 def get_update_data(alpha, update_data):
+    """
+    :param alpha: 检测手段编号
+    :param update_data: 故障零部件对应的故障码/编号
+    :return:
+    """
     if ',' in update_data:
         set_update_data = set(update_data.split(','))
     else:
