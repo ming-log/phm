@@ -39,10 +39,16 @@ def select_relation(alpha):
     conn.commit()
     return c
 
+def select_detail_data(alpha, ID):
+    conn = judgment_connect()
+    cursor = conn.cursor()
+    sql = 'select %s from fault_information where ID = "%s"' % (alpha, ID)
+    cursor.execute(sql)
+    c = cursor.fetchall()
+    conn.commit()
+    return c
 
 
-
-
-
-
-
+select_detail_data('alpha1', 'R1')
+alpha = 'alpha1'
+ID = 'R1'

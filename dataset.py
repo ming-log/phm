@@ -3,7 +3,7 @@
 # author: Ming Luo
 # time: 2020/8/18 15:25
 
-from database import select_code, select_relation
+from database import select_code, select_relation, select_detail_data
 
 def get_tree_data(code):
     tree_data = select_code(code)
@@ -23,8 +23,9 @@ def get_ID(alpha):
         data.append(i[0])
     return data
 
-
-
+def get_detail_data(alpha, ID):
+    data = select_detail_data(alpha, ID)
+    return data[0][0]
 
 
 

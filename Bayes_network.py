@@ -1,12 +1,12 @@
 # !/usr/bin/python3
 # -*- coding:utf-8 -*-
 # author: Ming Luo
-# time: 2020/7/14 9:40
+# time: 2020/8/18 15:25
 
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.models import BayesianModel
 from pgmpy.inference import VariableElimination
-from dataset import get_tree_data, get_ID
+from dataset import get_tree_data, get_ID, get_detail_data
 
 
 """生成贝叶斯网络节点"""
@@ -75,6 +75,13 @@ def str_to_dic(str):
         dic[str] = 0
     return dic
 
+def get_pro(alpha, _list):
+    data = {}
+    for i in _list:
+        pro = get_detail_data(alpha, i)
+        data[i] = pro
+    return data
+
 """获取需要更新的数据"""
 def get_update_data(alpha, update_data):
     if ',' in update_data:
@@ -87,8 +94,13 @@ def get_update_data(alpha, update_data):
     already_check = set_data.intersection(set_update_data)
     rest_data = set_data.difference(set_update_data)
     print(alpha + '需要检测的零部件:' + str(list(set_data)))
+
     print("其中已经检测过的零部件:" + str(list(already_check)))
     print("还需要检测的零部件:" + str(list(rest_data)))
+    if rest_data:
+        set_data_pro = get_pro(alpha, list(rest_data))
+        for i, j in set_data_pro.items():
+            print(i + ':' + j)
     input("输入回车继续：")
     rest_data = list(rest_data)
     if len(rest_data) >= 1:
@@ -106,9 +118,11 @@ def main(code = "P20FE85"):
     update_data = ''
     while True:
         try:
-            alpha = input("请输入检测结果:")
+            alpha = input("请输入要进行检测的检测手段序号:")
             if alpha == '0':
-                print("退出成功！")
+                print("*"*10)
+                print(" 退出成功！")
+                print("*" * 10)
                 break
             update = get_update_data(alpha, update_data)
             print("输入0退出系统！")
