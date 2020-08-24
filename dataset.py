@@ -35,4 +35,3 @@ get_ID = get_id
 def get_detail_data(alpha, num):
     data = select_detail_data(alpha, num)
     return data[0][0]
-

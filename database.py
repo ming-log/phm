@@ -53,4 +53,3 @@ def select_detail_data(alpha, num):
     c = cursor.fetchall()
     conn.commit()
     return c
-
