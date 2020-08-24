@@ -5,9 +5,11 @@
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.models import BayesianModel
 from pgmpy.inference import VariableElimination
+
 from dataset import get_tree_data, get_ID, get_detail_data
 
-"""生成贝叶斯网络节点"""
+
+# 生成贝叶斯网络节点
 def node_pro(pro, code, p_code):
     """
     :param pro: 先验的故障条件概率
@@ -20,12 +22,13 @@ def node_pro(pro, code, p_code):
                 variable_card=2,
                 values=[[1, 1 - pro],
                         [0, pro]],
-        evidence=[p_code],
-        evidence_card=[2]
-    )
+                evidence=[p_code],
+                evidence_card=[2]
+                )
     return cpd
 
-"""得到所有节点名称"""
+
+# 得到所有节点名称
 def get_all_node_name(code):
     """
     :param code: 根节点故障码/故障编号
@@ -37,7 +40,8 @@ def get_all_node_name(code):
         all_node_name.append(i[0])
     return all_node_name
 
-"""构建贝叶斯网络模型"""
+
+# 构建贝叶斯网络模型
 def set_bayes_model(code):
     """
     :param code: 根节点故障码/故障编号
@@ -56,8 +60,9 @@ def set_bayes_model(code):
     model.add_cpds(root_cpd)
     return model
 
-"""更新贝叶斯网络"""
-def update_bayes_network(model, code, update_element = {}):
+
+# 更新贝叶斯网络
+def update_bayes_network(model, code, update_element={}):
     """
     :param model: 贝叶斯网络模型
     :param code: 根节点的故障码/故障编号
@@ -82,7 +87,8 @@ def update_bayes_network(model, code, update_element = {}):
         print(i + ':' + str(j/sum_j))
     return sort_re
 
-"""将输入的字符串转化为字典"""
+
+# 将输入的字符串转化为字典
 def str_to_dic(str):
     """
     :param str: 字符串
@@ -96,6 +102,7 @@ def str_to_dic(str):
         dic[str] = 0
     return dic
 
+
 def get_pro(alpha, _list):
     """
     :param alpha: 检测手段的编号
@@ -108,7 +115,8 @@ def get_pro(alpha, _list):
         data[i] = pro
     return data
 
-"""获取需要更新的数据"""
+
+# 获取需要更新的数据
 def get_update_data(alpha, update_data):
     """
     :param alpha: 检测手段编号
@@ -144,6 +152,7 @@ def get_update_data(alpha, update_data):
         a = ''
     return a
 
+
 def main(code = "P20FE85"):
     model = set_bayes_model(code)
     print('当前网络节点概率值:')
@@ -177,6 +186,7 @@ def main(code = "P20FE85"):
                 print("请输入0退出系统！")
         except:
             print("输入错误！")
+
 
 """
 对应规则
