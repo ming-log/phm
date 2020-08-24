@@ -33,15 +33,25 @@ class RelationSheet:
                 first_part = self.get_first_part(i)
                 print("\t", "故障一级部件:", first_part)
                 print("\t", i, ":")
-                print("\t", j.values[0])
+                if '\n' in j.values[0]:
+                    for k in j.values[0].split("\n"):
+                        print("\t", k)
+                else:
+                    print("\t", j.values[0])
 
 
 if __name__ == '__main__':
     relation_sheet = RelationSheet()
     while True:
-        print("-" * 50)
+        print("\t", "-" * 50)
         fault_code = input("故障码:")
         if fault_code == '0':
-            print("退出系统!")
+            print()
+            print("\t\t\t**************")
+            print("\t\t\t*退 出 系 统 !*")
+            print("\t\t\t**************")
             break
-        relation_sheet.select(fault_code)
+        try:
+            relation_sheet.select(fault_code)
+        except Exception as e:
+            print("\t\t\tError:", e)
