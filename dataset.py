@@ -32,20 +32,7 @@ get_ID = get_id
 
 
 # 获取详细信息数据
-def get_detail_data(alpha, ID):
-    data = select_detail_data(alpha, ID)
+def get_detail_data(alpha, num):
+    data = select_detail_data(alpha, num)
     return data[0][0]
-
-
-
-
-
-
-
-
-
-
-
-
-
 

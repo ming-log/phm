@@ -17,8 +17,8 @@ def judgment_connect():
                                 charset='utf8'
                                 )
         return conn
-    except:
-        print("数据库连接失败")
+    except Exception as e:
+        print("数据库连接失败", e)
         return 0
 
 
@@ -45,10 +45,10 @@ def select_relation(alpha):
 
 
 # 根据检测手段和相应的零部件故障编号查询对应的概率值
-def select_detail_data(alpha, ID):
+def select_detail_data(alpha, num):
     conn = judgment_connect()
     cursor = conn.cursor()
-    sql = 'select %s from fault_information where ID = "%s"' % (alpha, ID)
+    sql = 'select %s from fault_information where ID = "%s"' % (alpha, num)
     cursor.execute(sql)
     c = cursor.fetchall()
     conn.commit()

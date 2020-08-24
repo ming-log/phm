@@ -72,13 +72,13 @@ def update_bayes_network(model, code, update_element={}):
     kt_infer = VariableElimination(model)
     all_node_name = get_all_node_name(code)
     sec_problem = set(all_node_name)
-    The_updated_element = list(sec_problem.difference(set(update_element.keys())))
+    the_updated_element = list(sec_problem.difference(set(update_element.keys())))
     update_prob = {}
-    for i in The_updated_element:
+    for i in the_updated_element:
         temp = kt_infer.query(
             variables=[i],
             evidence=update_element,
-            show_progress = False
+            show_progress=False
         ).values[1]
         update_prob[i] = temp
     sort_re = dict(sorted(update_prob.items(), key=lambda x: x[1], reverse=True))
@@ -89,18 +89,18 @@ def update_bayes_network(model, code, update_element={}):
 
 
 # 将输入的字符串转化为字典
-def str_to_dic(str):
+def str_to_dic(_str):
     """
-    :param str: 字符串
+    :param _str: 字符串
     :return: 字典
     """
-    dic = {}
-    if ',' in str:
-        for i in str.split(','):
-            dic[i] = 0
+    _dic = {}
+    if ',' in _str:
+        for i in _str.split(','):
+            _dic[i] = 0
     else:
-        dic[str] = 0
-    return dic
+        _dic[_str] = 0
+    return _dic
 
 
 def get_pro(alpha, _list):
@@ -153,7 +153,7 @@ def get_update_data(alpha, update_data):
     return a
 
 
-def main(code = "P20FE85"):
+def main(code="P20FE85"):
     model = set_bayes_model(code)
     print('当前网络节点概率值:')
     update_bayes_network(model, code)
@@ -184,8 +184,8 @@ def main(code = "P20FE85"):
             if not result:
                 print("所有故障均以排除，如果还没有解决问题则说明故障不在数据库中，请进一步深入检查！")
                 print("请输入0退出系统！")
-        except:
-            print("输入错误！")
+        except Exception as e:
+            print("输入错误！", e)
 
 
 """
