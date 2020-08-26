@@ -37,7 +37,7 @@ def select_code(code):
 def select_relation(alpha):
     conn = judgment_connect()
     cursor = conn.cursor()
-    sql = 'select ID from fault_information where %s is not null' % alpha
+    sql = 'select ID from fault_information where fault_information.%s is not null' % alpha
     cursor.execute(sql)
     c = cursor.fetchall()
     conn.commit()
