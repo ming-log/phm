@@ -63,7 +63,7 @@ def get_update_data(alpha, update_data):
     return set_data_pro, action
 
 
-def main(code="P20FE85"):
+def main(code="P20FE85", e_y=5, e_x=0.995):
     bayes_network = BayesNetwork(code)
     model = bayes_network.make_bayes_model()
     print('当前网络节点概率值:')
@@ -99,11 +99,11 @@ def main(code="P20FE85"):
             if action == '1':
                 for i, j in update.items():
                     update[i] = float(update[i].split('%')[0]) / 100
-                    result[i] = result[i] * (1 + 5 * update[i])
+                    result[i] = result[i] * (1 + e_y * update[i])
             else:
                 for i, j in update.items():
                     update[i] = float(update[i].split('%')[0]) / 100
-                    result[i] = result[i] * (1 - 0.995 * update[i])
+                    result[i] = result[i] * (1 - e_x * update[i])
 
             sum_j = sum(result.values())
             for i, j in result.items():
