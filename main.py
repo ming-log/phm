@@ -46,13 +46,19 @@ def get_update_data(alpha, update_data):
     else:
         set_update_data = {}
     print("-" * 20)
-    set_data = set(get_ID(alpha))                               # 需要检测的所有零部件
+    if isinstance(alpha, list):
+        set_data = set()
+        for a in alpha:
+            temp_data = set(get_ID(a))
+            set_data = set_data.union(temp_data)
+    else:
+        set_data = set(get_ID(alpha))                           # 需要检测的所有零部件
     already_check = set_data.intersection(set_update_data)      # 已经检测过的零部件
     rest_data = set_data.difference(set_update_data)            # 还需要检测的零部件
-    print(alpha + '需要检测的零部件:' + str(list(set_data)))
+    print(str(alpha) + '需要检测的零部件:' + str(list(set_data)))
     print("其中已经检测过的零部件:" + str(list(already_check)))
     print("需要检测的零部件:" + str(list(rest_data)))
-    action = input("检测有故障请输入1，检测无故障请输入0：")
+    action = input("检测有故障请输入1，检测无故障请输入0:")
     # rest_data = list(rest_data)
     set_data_pro = {}
     if action == '1' or action == '0':
@@ -75,7 +81,11 @@ def main(code="P20FE85", e_y=5, e_x=0.995):
     update_data = ''
     while True:
         try:
-            alpha = input("请输入要进行检测的检测手段序号:")
+            alphas = input("请输入要进行检测的检测手段序号:")
+            if ',' in alphas:
+                alpha = alphas.split(',')
+            else:
+                alpha = alphas
             if alpha == '0':
                 print("*"*10)
                 print(" 退出成功！")
@@ -116,7 +126,7 @@ def main(code="P20FE85", e_y=5, e_x=0.995):
                 print("所有故障均以排除，如果还没有解决问题则说明故障不在数据库中，请进一步深入检查！")
                 print("请输入0退出系统！")
         except Exception as e:
-            print("输入错误！", e)
+            print("输入错误！\n", e)
 
 
 """
