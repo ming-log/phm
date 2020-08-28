@@ -21,7 +21,6 @@ class BayesNetwork:
     def node_pro(self, pro, p_code):
         """
         :param pro: 先验的故障条件概率
-        :param code: 当前节点的故障码/故障编号
         :param p_code: 当前节点的父节点的故障码/故障编号
         :return: 相应的贝叶斯网络叶节点cpd对象
         """
@@ -38,7 +37,6 @@ class BayesNetwork:
     # 得到所有节点名称
     def get_all_node_name(self):
         """
-        :param code: 根节点故障码/故障编号
         :return: 所有叶节点故障码/故障编号
         """
         _, pro_data = get_tree_data(self.code)
@@ -50,7 +48,6 @@ class BayesNetwork:
     # 构建贝叶斯网络模型
     def make_bayes_model(self):
         """
-        :param code: 根节点故障码/故障编号
         :return: 利用历史信息构建好的贝叶斯网络模型
         """
         node_data, pro_data = get_tree_data(self.code)
@@ -72,7 +69,6 @@ class BayesNetwork:
     def update_bayes_network(self, model, update_element={}):
         """
         :param model: 贝叶斯网络模型
-        :param code: 根节点的故障码/故障编号
         :param update_element: 进行故障检测的检测手段编号
         :return:更新后的网络节点信息
         """
