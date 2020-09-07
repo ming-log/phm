@@ -1,0 +1,158 @@
+{
+	"FtaTree": {
+		"Root": {
+			"NodeName": "P20FE85 （尿素系统压力过低）",
+			"IRate": "0.06",
+			"Code": "A1"
+		},
+		"Leaf": [{
+				"NodeName": "尿素液位不足",
+				"IRate": 0.0018,
+				"CRate": 0.03,
+				"Code": "R1",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素管路松动、破损、弯折",
+				"IRate": 0.0018,
+				"CRate": 0.03,
+				"Code": "R2",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素泵滤芯、滤网堵塞",
+				"IRate": 0.018,
+				"CRate": 0.3,
+				"Code": "R3",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素箱滤网堵塞",
+				"IRate": 0.015,
+				"CRate": 0.25,
+				"Code": "R4",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素箱通气孔不通气",
+				"IRate": 0.0036,
+				"CRate": 0.06,
+				"Code": "R5",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素泵电机损坏",
+				"IRate": 0.006,
+				"CRate": 0.1,
+				"Code": "R6",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "压力传感器损坏",
+				"IRate": 0.0072,
+				"CRate": 0.12,
+				"Code": "R7",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素泵常回流",
+				"IRate": 0.0048,
+				"CRate": 0.08,
+				"Code": "R8",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素泵体泄露",
+				"IRate": 0.0006,
+				"CRate": 0.01,
+				"Code": "R9",
+				"PCode":"A1"
+			},
+			{
+				"NodeName": "尿素喷嘴泄露、喷射量大",
+				"IRate": 0.0012,
+				"CRate": 0.02,
+				"Code": "R10",
+				"PCode":"A1"
+			}
+		]
+	},
+	"Method": [{
+			"MethodCode": "a1",
+			"RelatedLeaf": [{
+				"Code": "R1",
+				"Rate": 1
+			}]
+		},
+		{
+			"MethodCode": "a2",
+			"RelatedLeaf": [{
+				"Code": "R6",
+				"Rate": 1
+			}]
+		},
+		{
+			"MethodCode": "a3",
+			"RelatedLeaf": [{
+				"Code": "R10",
+				"Rate": 1
+			}]
+		},
+		{
+			"MethodCode": "a4",
+			"RelatedLeaf": [{
+				"Code": "R3",
+				"Rate": 1
+			}]
+		},
+		{
+			"MethodCode": "a5",
+			"RelatedLeaf": [{
+				"Code": "R1",
+				"Rate": 0.04
+			}, {
+				"Code": "R2",
+				"Rate": 0.04
+			}, {
+				"Code": "R3",
+				"Rate": 0.3
+			}, {
+				"Code": "R4",
+				"Rate": 0.25
+			}, {
+				"Code": "R5",
+				"Rate": 0.07
+			}, {
+				"Code": "R6",
+				"Rate": 0.1
+			}, {
+				"Code": "R7",
+				"Rate": 0.12
+			}, {
+				"Code": "R8",
+				"Rate": 0.08
+			}]
+		},
+		{
+			"MethodCode": "a6",
+			"RelatedLeaf": [{
+				"Code": "R2",
+				"Rate": 1
+			}]
+		},
+		{
+			"MethodCode": "a7",
+			"RelatedLeaf": [{
+				"Code": "R10",
+				"Rate": 1
+			}]
+		},
+		{
+			"MethodCode": "a8",
+			"RelatedLeaf": [{
+				"Code": "R4",
+				"Rate": 1
+			}]
+		}
+	]
+}

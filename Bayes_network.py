@@ -6,16 +6,20 @@ from pgmpy.factors.discrete import TabularCPD
 from pgmpy.models import BayesianModel
 from pgmpy.inference import VariableElimination
 
-from dataset import get_tree_data
+import dataset1
 
 
 # 贝叶斯网络类
 class BayesNetwork:
-    def __init__(self, code):
+    def __init__(self):
         """
         :param code: 根节点故障码
         """
-        self.code = code
+        self.root_code = dataset1.root_code
+        self.root_pro = dataset1.root_pro
+        self.tree = dataset1.tree
+        self.pro = dataset1.pro
+        self.method_data = dataset1.method_data
 
     # 生成贝叶斯网络节点
     def node_pro(self, pro, p_code):
@@ -29,7 +33,7 @@ class BayesNetwork:
                     variable_card=2,
                     values=[[1, 1 - pro],
                             [0, pro]],
-                    evidence=[self.code],
+                    evidence=[self.root_code],
                     evidence_card=[2]
                     )
         return cpd
@@ -39,9 +43,8 @@ class BayesNetwork:
         """
         :return: 所有叶节点故障码/故障编号
         """
-        _, pro_data = get_tree_data(self.code)
         all_node_name = []
-        for i in pro_data[1:]:
+        for i in self.pro:
             all_node_name.append(i[0])
         return all_node_name
 
@@ -50,17 +53,16 @@ class BayesNetwork:
         """
         :return: 利用历史信息构建好的贝叶斯网络模型
         """
-        node_data, pro_data = get_tree_data(self.code)
-        model = BayesianModel(node_data[1:])
-        for i in pro_data[1:]:
-            cpd = self.node_pro(float(i[1].split('%')[0])/100, i[0])
+        model = BayesianModel(self.tree)
+        for i in self.pro:
+            cpd = self.node_pro(float(i[1]), i[0])
             model.add_cpds(cpd)   # 将各子节点加入贝叶斯网络
         # 根节点
         root_cpd = TabularCPD(
-                            variable=self.code,
+                            variable=self.root_code,
                             variable_card=2,
-                            values=[[1 - float(pro_data[0][1].split('%')[0])/100,
-                                     float(pro_data[0][1].split('%')[0])/100]]
+                            values=[[1 - float(self.root_pro),
+                                     float(self.root_pro)]]
                             )
         model.add_cpds(root_cpd)  # 将根节点加入贝叶斯网络
         return model

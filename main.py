@@ -3,7 +3,7 @@
 # author: Ming Luo
 # time: 2020/8/18 15:25
 from Bayes_network import BayesNetwork
-from dataset import get_ID, get_detail_data
+from dataset1 import get_ID, method_data
 
 
 # 将输入的字符串转化为字典
@@ -21,19 +21,6 @@ def str_to_dic(_str):
     return _dic
 
 
-def get_pro(alpha, _list):
-    """
-    :param alpha: 检测手段的编号
-    :param _list: 故障零部件对应的故障码/编号构成的列表
-    :return:
-    """
-    data = {}
-    for i in _list:
-        pro = get_detail_data(alpha, i)
-        data[i] = pro
-    return data
-
-
 # 获取需要更新的数据
 def get_update_data(alpha, update_data):
     """
@@ -49,10 +36,11 @@ def get_update_data(alpha, update_data):
     if isinstance(alpha, list):
         set_data = set()
         for a in alpha:
-            temp_data = set(get_ID(a))
+            temp_data = set(get_ID(a, method_data)['Code'])
             set_data = set_data.union(temp_data)
     else:
-        set_data = set(get_ID(alpha))                           # 需要检测的所有零部件
+        data = get_ID(alpha, method_data)
+        set_data = set(data['Code'])                            # 需要检测的所有零部件
     already_check = set_data.intersection(set_update_data)      # 已经检测过的零部件
     rest_data = set_data.difference(set_update_data)            # 还需要检测的零部件
     print(str(alpha) + '需要检测的零部件:' + str(list(set_data)))
@@ -62,15 +50,16 @@ def get_update_data(alpha, update_data):
     # rest_data = list(rest_data)
     set_data_pro = {}
     if action == '1' or action == '0':
-        set_data_pro = get_pro(alpha, list(set_data))
+        for i in range(len(data)):
+            set_data_pro[data['Code'].iloc[i]] = data['Rate'].iloc[i]
     else:
         print("输入错误!")
         # return
     return set_data_pro, action
 
 
-def main(code="P20FE85", e_y=5, e_x=0.995):
-    bayes_network = BayesNetwork(code)
+def main(e_y=50, e_x=0.995):
+    bayes_network = BayesNetwork()
     model = bayes_network.make_bayes_model()
     print('当前网络节点概率值:')
     result = bayes_network.update_bayes_network(model)
@@ -92,9 +81,6 @@ def main(code="P20FE85", e_y=5, e_x=0.995):
                 print("*"*10)
                 break
             update, action = get_update_data(alpha, update_data)
-            print("-" * 50)
-            print("更新数据:\n" + str(update))
-            print("-" * 50)
             for i in range(len(update.keys())):
                 if i == 0:
                     temp = list(update.keys())[i]
@@ -108,11 +94,11 @@ def main(code="P20FE85", e_y=5, e_x=0.995):
             print("更新后的节点概率:")
             if action == '1':
                 for i, j in update.items():
-                    update[i] = float(update[i].split('%')[0]) / 100
+                    update[i] = float(update[i])
                     result[i] = result[i] * (1 + e_y * update[i])
             else:
                 for i, j in update.items():
-                    update[i] = float(update[i].split('%')[0]) / 100
+                    update[i] = float(update[i])
                     result[i] = result[i] * (1 - e_x * update[i])
 
             sum_j = sum(result.values())
