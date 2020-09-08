@@ -12,9 +12,6 @@ import dataset1
 # 贝叶斯网络类
 class BayesNetwork:
     def __init__(self):
-        """
-        :param code: 根节点故障码
-        """
         self.root_code = dataset1.root_code
         self.root_pro = dataset1.root_pro
         self.tree = dataset1.tree
