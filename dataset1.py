@@ -2,16 +2,12 @@
 # -*- coding:utf-8 -*- 
 # author: Ming Luo
 # time: 2020/9/7 13:19
-# !/usr/bin/python3
-# -*- coding:utf-8 -*-
-# author: Ming Luo
-# time: 2020/8/18 15:25
 import json
 
 import pandas as pd
 
 
-json_file = "data.json"     # 需要导入的json文件
+json_file = "example1.json"     # 需要导入的json文件
 
 
 def read_json(json_file):

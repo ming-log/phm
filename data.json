@@ -79,7 +79,7 @@
 	},
 	"Method": [{
 			"MethodCode": "a1",
-			"RelatedLeaf": [{
+,			"RelatedLeaf": [{
 				"Code": "R1",
 				"Rate": 1
 			}]

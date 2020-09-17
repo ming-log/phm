@@ -4,7 +4,7 @@
 # time: 2020/8/18 15:25
 from Bayes_network import BayesNetwork
 from dataset1 import get_ID, method_data
-
+import numpy as np
 
 # 将输入的字符串转化为字典
 def str_to_dic(_str):
@@ -99,7 +99,7 @@ def main(e_y=50, e_x=0.995):
             else:
                 for i, j in update.items():
                     update[i] = float(update[i])
-                    result[i] = result[i] * (1 - e_x * update[i])
+                    result[i] = result[i] * (1 - e_x * (1 - update[i] ** 5))
 
             sum_j = sum(result.values())
             for i, j in result.items():

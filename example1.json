@@ -1,0 +1,335 @@
+{
+	"FtaTree": {
+		"Root": {
+			"NodeName": "P0087 实际轨压低于最低轨压值",
+			"IRate": "0.08",
+			"Code": "A1"
+		},
+		"Leaf": [{
+				"NodeName": "ECU",
+				"IRate": 0.0056,
+				"CRate": 0.07,
+				"Code": "R1",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "计量单元",
+				"IRate": 0.012,
+				"CRate": 0.15,
+				"Code": "R2",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "计量单元线束",
+				"IRate": 0.0072,
+				"CRate": 0.09,
+				"Code": "R3",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "溢流阀",
+				"IRate": 0.064,
+				"CRate": 0.08,
+				"Code": "R4",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "柱塞泵堵塞",
+				"IRate": 0.0048,
+				"CRate": 0.06,
+				"Code": "R5",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "滤清器堵塞",
+				"IRate": 0.0064,
+				"CRate": 0.08,
+				"Code": "R6",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "齿轮泵损坏",
+				"IRate": 0.0056,
+				"CRate": 0.07,
+				"Code": "R7",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "限压阀损坏",
+				"IRate": 0.0056,
+				"CRate": 0.07,
+				"Code": "R8",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "轨压传感器",
+				"IRate": 0.012,
+				"CRate": 0.15,
+				"Code": "R9",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "轨压传感器线束",
+				"IRate": 0.0072,
+				"CRate": 0.09,
+				"Code": "R10",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			},
+			{
+				"NodeName": "喷油器回油大",
+				"IRate": 0.0072,
+				"CRate": 0.09,
+				"Code": "R11",
+				"PCode":"A1",
+				"fix":"",
+				"verify":""
+			}
+		]
+	},
+	"Method": [{
+			"MethodCode": "a1",
+			"RelatedLeaf": [{
+				"Code": "R8",
+				"Rate": 0.2
+			}, {
+				"Code": "R9",
+				"Rate": 0.4
+			}, {
+				"Code": "R10",
+				"Rate": 0.2
+			}, {
+				"Code": "R11",
+				"Rate": 0.2
+			}],
+			"name":"检测油泵压力是否大于1600bar",
+			"weight":8,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a2",
+			"RelatedLeaf": [{
+				"Code": "R6",
+				"Rate": 0.5
+			}, {
+				"Code": "R7",
+				"Rate": 0.5
+			}],
+			"name":"油泵负压检测是否为0.5～0.7bar",
+			"weight":4,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a3", 
+			"RelatedLeaf": [{
+				"Code": "R1",
+				"Rate": 0.5
+			}, {
+				"Code": "R9",
+				"Rate": 0.3
+			}, {
+				"Code": "R10",
+				"Rate": 0.2
+			}],
+			"name":"轨压传感器在ON档状态下，带线测量为0.5V",
+			"weight":7,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a4",
+			"RelatedLeaf": [{
+				"Code": "R1",
+				"Rate": 0.5
+			}, {
+				"Code": "R2",
+				"Rate": 0.3
+			}, {
+				"Code": "R3",
+				"Rate": 0.2
+			}],
+			"name":"计量单元自检",
+			"weight":8,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a5",
+			"RelatedLeaf": [{
+				"Code": "R6",
+				"Rate": 1
+			}],
+			"name":"目视滤清器堵塞",
+			"weight":9,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a6",
+			"RelatedLeaf": [{
+				"Code": "R7",
+				"Rate": 1
+			}],
+			"name":"检查齿轮泵损坏",
+			"weight":4,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a7",
+			"RelatedLeaf": [{
+				"Code": "R8",
+				"Rate": 1
+			}],
+			"name":"检查限压阀损坏",
+			"weight":5,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a8",
+			"RelatedLeaf": [{
+				"Code": "R10",
+				"Rate": 1
+			}],
+			"name":"轨压传感器线束检查",
+			"weight":7,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a9",
+			"RelatedLeaf": [{
+				"Code": "R1",
+				"Rate": 0.8
+			}, {
+				"Code": "R10",
+				"Rate": 0.2
+			}],
+			"name":"轨压传感器检测，使用10K滑动变阻器，观察数据流是否变化",
+			"weight":7,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a10",
+			"RelatedLeaf": [{
+				"Code": "R2",
+				"Rate": 1
+			}],
+			"name":"燃油计量单元检测，电阻值在2.5-3.1",
+			"weight":8,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a11",
+			"RelatedLeaf": [{
+				"Code": "R1",
+				"Rate": 0.8
+			}, {
+				"Code": "R3",
+				"Rate": 0.2
+			}],
+			"name":"燃油计量单元自检时，使用50W试灯，接入电路中，观察试灯反应",
+			"weight":8,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a12",
+			"RelatedLeaf": [{
+				"Code": "R4",
+				"Rate": 1
+			}],
+			"name":"拆卸溢流阀检测",
+			"weight":5,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a13",
+			"RelatedLeaf": [{
+				"Code": "R5",
+				"Rate": 1
+			}],
+			"name":"拆卸柱塞泵检测",
+			"weight":5,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a14",
+			"RelatedLeaf": [{
+				"Code": "R3",
+				"Rate": 1
+			}],
+			"name":"对燃油计量单元线束检查",
+			"weight":7,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		},
+		{
+			"MethodCode": "a15",
+			"RelatedLeaf": [{
+				"Code": "R11",
+				"Rate": 1
+			}],
+			"name":"拆卸喷油器检测",
+			"weight":5,
+			"abnormalrate":0.5,
+			"type":3,
+			"dtc":[],
+			"content":[]
+		}
+	]
+}
